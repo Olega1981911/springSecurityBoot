@@ -41,6 +41,7 @@ public class DemoInit {
     }
 
     @Transactional
+    @PostConstruct
     @Bean
     public void addInitUsers() {
         roleService.save(roleAdmin);

@@ -1,13 +1,16 @@
 package com.project.springsecurityboot.security;
 
 
+import com.project.springsecurityboot.models.Role;
 import com.project.springsecurityboot.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 
 public class PersonDetails implements UserDetails {
     private final User user;
@@ -19,7 +22,14 @@ public class PersonDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        return Collections.singletonList(new SimpleGrantedAuthority(user.getRoles().toString() + user.getName()));
+        //return Collections.singletonList(new SimpleGrantedAuthority(user.getRoles().toString() + user.getName()));
+        Set<SimpleGrantedAuthority> set = new HashSet<>();
+        for (Role role : user
+                .getRoles()) {
+            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(role.getName());
+            set.add(simpleGrantedAuthority);
+        }
+        return set;
     }
 
     @Override
