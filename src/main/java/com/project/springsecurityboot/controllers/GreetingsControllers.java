@@ -1,8 +1,6 @@
 package com.project.springsecurityboot.controllers;
 
 
-import com.project.springsecurityboot.models.Role;
-import com.project.springsecurityboot.security.PersonDetails;
 import com.project.springsecurityboot.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -32,13 +30,7 @@ public class GreetingsControllers {
         return "/index";
     }
 
-    @GetMapping("/showUserInfo")
-    public String showUserInfo() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        System.out.println(personDetails.getUser());
-        return "/index";
-    }
+
 
     @GetMapping("/user")
     public String pageForUserProfile(Model model, Principal principal) {

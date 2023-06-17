@@ -233,7 +233,7 @@
                                                             <select style="margin-bottom: 20px" disabled multiple
                                                                     class="form-control" size="2" id="role" name="role">
                                                                 <option th:each="role : ${roleUser}"
-                                                                        th:text="${role.getName()()} + ' '"
+                                                                        th:text="${role.getName()} + ' '"
                                                                         th:value="${role.id}">
                                                                 </option>
                                                             </select>

@@ -25,7 +25,7 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-    @GetMapping("/admin")
+    @GetMapping()
     public String pageToViewAllUsers(ModelMap model, Principal principal) {
         User user = userDetailsService.findByName(principal.getName());
         model.addAttribute("user", user);

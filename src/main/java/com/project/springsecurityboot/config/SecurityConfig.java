@@ -56,7 +56,7 @@ private final SuccessUserHandler successUserHandler;
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login")
-                .loginProcessingUrl("/process_login")
+                .loginProcessingUrl("/process_login").usernameParameter("username")
                 .successHandler(successUserHandler)
                 .and()
                 .logout()
