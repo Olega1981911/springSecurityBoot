@@ -62,6 +62,6 @@ private final SuccessUserHandler successUserHandler;
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")
-                .permitAll();;
+                .permitAll();
     }
 }
