@@ -1,7 +1,6 @@
 package com.project.springsecurityboot.models;
 
 
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -23,7 +22,6 @@ public class User implements UserDetails {
     @Size(min = 2, max = 30, message = "Name should be between 2 to 30")
     private String name;
     @Column(name = "lastname")
-    @NotEmpty(message = "Last should not be empty")
     private String lastName;
     @Column(name = "age")
     @Positive(message = "Age should not be empty")
@@ -37,8 +35,10 @@ public class User implements UserDetails {
     @Column(unique = true)
     @NotEmpty(message = "Login should not be empty")
     private String login;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
+
 
     public User() {
     }
@@ -77,9 +77,6 @@ public class User implements UserDetails {
 
     public String getLastName() {
         return lastName;
-    }
-    public String getFullName() {
-        return name + " " + lastName;
     }
     public void setLastName(String lastName) {
         this.lastName = lastName;
@@ -154,6 +151,8 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 
     @Override
     public String toString() {

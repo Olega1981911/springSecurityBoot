@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -46,8 +46,8 @@ public class DemoInit {
         roleService.save(roleAdmin);
         roleService.save(roleUser);
 
-        User admin = new User("Petya", "Ivanov", (byte) 27, "admin@mail.ru",
-                "$2a$12$x2jGJqzzWh7mp1c4bNW/MePnpkb5Q.garsy0PN9cmK3Ja0UQ3N432", "Admin",
+        User admin = new User("Petya", "Ivanov", (byte) 27, "admin@mail.ru","admin"
+                , "Admin",
                 setAdminRole()); // пароль: admin
         User user = new User("Vasya", "Petrov", (byte) 17, "user@mail.ru",
                 "$2a$12$AyaqSH0/6oYd6yBC2sKfgutia.m2Cz//roNJ0scMTDYmBEba8.87q", "User",

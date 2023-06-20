@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -28,11 +29,7 @@ private final SuccessUserHandler successUserHandler;
     }
 
     //Настраивает аутентификацию
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsServiceImp);
 
-    }
     @Bean
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -44,6 +41,12 @@ private final SuccessUserHandler successUserHandler;
         authProvider.setPasswordEncoder(getPasswordEncoder());
 
         return authProvider;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsServiceImp);
+
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -64,4 +67,5 @@ private final SuccessUserHandler successUserHandler;
                 .logoutSuccessUrl("/login")
                 .permitAll();
     }
+
 }

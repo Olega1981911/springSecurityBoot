@@ -1,17 +1,19 @@
 package com.project.springsecurityboot.controllers;
 
+
 import com.project.springsecurityboot.models.User;
 import com.project.springsecurityboot.service.RoleServiceImpl;
 import com.project.springsecurityboot.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Set;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -35,19 +37,18 @@ public class AdminController {
     }
 
     @PostMapping()
-    public String addUser(@ModelAttribute("newUser") User user,
+    public String addUser(@ModelAttribute("newUser") @Valid User user,
                           @ModelAttribute("role") Long roleId) {
         return getString(user, roleId);
     }
 
     private String getString(@ModelAttribute("newUser") User user,
                              @ModelAttribute("role") Long roleId) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        user.setLogin(user.getLogin());
         user.setRoles(Set.of(roleService.getOneRole(roleId)));
         userDetailsService.saveUser(user);
         return "redirect:/admin";
     }
+
     @GetMapping("/update/{id}")
     public String prepareToUpdateUser(Model model, @PathVariable("id") Long id) {
         User user = userDetailsService.findOne(id);
@@ -55,8 +56,10 @@ public class AdminController {
         model.addAttribute("roleUser", roleService.getAllRoles());
         return "admin";
     }
+
+
     @PutMapping("/update/{id}")
-    public String updateUser(@ModelAttribute("user") User user,
+    public String updateUser(@ModelAttribute("user")@Valid User user,
                              @ModelAttribute("role") Long roleId) {
         return getString(user, roleId);
     }
