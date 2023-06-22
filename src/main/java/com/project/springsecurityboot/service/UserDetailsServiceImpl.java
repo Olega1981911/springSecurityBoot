@@ -1,7 +1,6 @@
 package com.project.springsecurityboot.service;
 
 
-
 import com.project.springsecurityboot.models.User;
 import com.project.springsecurityboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
-
 
 
 @Service
@@ -26,7 +26,8 @@ import java.util.Optional;
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
     public UserDetailsServiceImpl(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder) {
@@ -36,13 +37,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findUserByLogin(login);
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User not found");
-        }
 
-        return user.orElse(null);
-
+        User user = userRepository.findUserByLogin(login)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        System.out.println("\n\n\n\n\n" + user);
+        return user;
 
     }
 
@@ -50,12 +49,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Optional<User> user = userRepository.findUserByLogin(username);
         return user.orElse(new User());
     }
+
     public List<User> findAll() {
         return userRepository.findAll();
     }
-    public User findOne(Long id){
+
+    public User findOne(Long id) {
         Optional<User> user = userRepository.findById(id);
-        return user.orElse(new User());
+        return user.orElse(null);
     }
 
     @Transactional
@@ -63,11 +64,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
+
     @Transactional
     public void update(long id, User updateUser) {
         updateUser.setId(id);
         userRepository.save(updateUser);
     }
+
     @Transactional
     public void deleteUser(long id) {
         userRepository.deleteById(id);

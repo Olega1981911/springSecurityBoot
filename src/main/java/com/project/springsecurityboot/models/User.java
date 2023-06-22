@@ -35,9 +35,8 @@ public class User implements UserDetails {
     @Column(unique = true)
     @NotEmpty(message = "Login should not be empty")
     private String login;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private Set<Role> roles;
-
 
 
     public User() {
@@ -78,6 +77,7 @@ public class User implements UserDetails {
     public String getLastName() {
         return lastName;
     }
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -98,6 +98,7 @@ public class User implements UserDetails {
         this.email = email;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -151,7 +152,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 
 
     @Override

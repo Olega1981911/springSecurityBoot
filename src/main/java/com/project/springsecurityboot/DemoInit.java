@@ -50,7 +50,7 @@ public class DemoInit {
                 , "Admin",
                 setAdminRole()); // пароль: admin
         User user = new User("Vasya", "Petrov", (byte) 17, "user@mail.ru",
-                "$2a$12$AyaqSH0/6oYd6yBC2sKfgutia.m2Cz//roNJ0scMTDYmBEba8.87q", "User",
+                "user", "User",
                 setRoleUser()); // пароль: user
 
         userDetailsService.saveUser(admin);

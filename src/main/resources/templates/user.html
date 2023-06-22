@@ -39,10 +39,10 @@
     <!-- боковая навигация между Admin panel и user page -->
     <div class="col-md-3 col-xl-2 py-2" style="padding-top: 15px; flex: 1 6; height: 100%; background: white">
         <ul class="nav nav-pills flex-column mb-auto">
-            <!--<li class="nav-item">
+            <li class="nav-item">
                 <a href="/admin" class="nav-link" aria-current="page"
-                   th:if="${isAdminRole}">Admin</a>
-            </li>-->
+                   >Admin</a>
+            </li>
             <li class="nav-item">
                 <a href="/user" class="nav-link active" aria-current="page">User</a>
             </li>
@@ -50,9 +50,9 @@
     </div>
     <div class="tab-content" id="v-pills-tabContent" style="padding: 15px 25px 15px 25px; flex: 5 6; height: 100%;">
         <div class="tab-pane show active" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
-            <div sec:authorize="isAuthenticated()">
+            <!--<div sec:authorize="isAuthenticated()">
                 Welcome <b><span sec:authentication="user" th:text="${user.getName()}">Username</span></b>
-            </div>
+            </div>-->
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title" style="margin: 5px 0">About user</h5>
