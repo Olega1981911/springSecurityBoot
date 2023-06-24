@@ -1,6 +1,7 @@
 package com.project.springsecurityboot.service;
 
 
+import com.project.springsecurityboot.models.MyUserPrincipal;
 import com.project.springsecurityboot.models.User;
 import com.project.springsecurityboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         User user = userRepository.findUserByLogin(login)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        System.out.println("\n\n\n\n\n" + user);
-        return user;
+       // System.out.println("\n\n\n\n\n" + user);
+        return new MyUserPrincipal(user);
 
     }
 
